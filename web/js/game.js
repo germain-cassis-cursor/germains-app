@@ -71,31 +71,21 @@ function rectsOverlap(a, b) {
 	return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 }
 
-function resolvePlatform(p, plat) {
-	const next = { ...p, x: p.x + p.vx, y: p.y + p.vy };
-	if (!rectsOverlap(next, plat)) return;
+function resolvePlatform(p, plat, prevBottom) {
+	const overlapsX = p.x + p.w > plat.x && p.x < plat.x + plat.w;
+	const touchesTop = prevBottom <= plat.y && p.y + p.h >= plat.y;
+	if (!overlapsX || !touchesTop) return false;
 
-	const prevX = { ...p, x: p.x + p.vx, y: p.y };
-	const prevY = { ...p, x: p.x, y: p.y + p.vy };
-
-	if (!rectsOverlap(prevX, plat)) {
-		if (p.vx > 0) p.x = plat.x - p.w;
-		else if (p.vx < 0) p.x = plat.x + plat.w;
-		p.vx = 0;
-	} else if (!rectsOverlap(prevY, plat)) {
-		if (p.vy > 0) {
-			p.y = plat.y - p.h;
-			p.vy = 0;
-			p.onGround = true;
-		} else if (p.vy < 0) {
-			p.y = plat.y + plat.h;
-			p.vy = 0;
-		}
-	}
+	p.y = plat.y - p.h;
+	p.vy = 0;
+	p.onGround = true;
+	return true;
 }
 
 function update() {
 	if (won) return;
+
+	const prevBottom = player.y + player.h;
 
 	if (keys.has("ArrowLeft") || keys.has("KeyA") || keys.has("a")) player.vx -= MOVE_SPEED;
 	if (keys.has("ArrowRight") || keys.has("KeyD") || keys.has("d")) player.vx += MOVE_SPEED;
@@ -107,8 +97,11 @@ function update() {
 	player.y += player.vy;
 
 	for (const plat of platforms) {
-		resolvePlatform(player, plat);
+		if (resolvePlatform(player, plat, prevBottom)) break;
 	}
+
+	if (player.x < 0) player.x = 0;
+	if (player.x + player.w > W) player.x = W - player.w;
 
 	if (player.y > H + 80) resetRun(false);
 
