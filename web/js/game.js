@@ -140,7 +140,7 @@ function drawCloud(cx, cy) {
 
 function draw() {
 	ctx.clearRect(0, 0, W, H);
-	for (let i = 0; i < 6; i++) drawCloud(80 + i * 140, 50 + (i % 3) * 12));
+	for (let i = 0; i < 6; i++) drawCloud(80 + i * 140, 50 + (i % 3) * 12);
 
 	for (const plat of platforms) {
 		ctx.fillStyle = plat.y >= GROUND_Y ? "#2f3d4d" : "#3d5166";
