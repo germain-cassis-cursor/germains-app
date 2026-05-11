@@ -1,0 +1,7 @@
+{
+	"tips": [
+		"Products: IDE integration, Agent, CLI, and Cloud — same mental model: prompt → diff → apply (simplified stub).",
+		"Composer-style flows help with multi-file edits; inline chat helps local reasoning (illustrative, not live product copy).",
+		"Check official docs for current names and capabilities — this file is intentionally static."
+	]
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Germain’s App — Cursor Learning Run</title>
+	<link rel="stylesheet" href="./css/app.css" />
+</head>
+<body>
+	<header class="top">
+		<div>
+			<h1>Germain’s App</h1>
+			<p class="tagline">A stub-data platformer about Cursor &amp; the SDLC (no external APIs).</p>
+		</div>
+		<a class="link-prd" href="https://github.com/germain-cassis-cursor/germains-app/blob/main/prd.md">PRD on GitHub</a>
+	</header>
+	<main>
+		<div class="hud" id="hud">
+			<span id="hud-tip">Loading tips…</span>
+			<span class="hud-keys">Move: ← → · Jump: Space / ↑ · Restart: R</span>
+		</div>
+		<canvas id="game" width="880" height="440" aria-label="Game canvas"></canvas>
+		<div id="overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+			<div class="card">
+				<h2 id="overlay-title">You made it!</h2>
+				<p id="overlay-body"></p>
+				<button type="button" id="overlay-btn">Play again</button>
+			</div>
+		</div>
+	</main>
+	<footer class="foot">
+		All content is local JSON stubs — see <code>web/content/</code> in the repo.
+	</footer>
+	<script type="module" src="./js/game.js"></script>
+</body>
+</html>

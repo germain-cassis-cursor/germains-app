@@ -1,0 +1,7 @@
+{
+	"tips": [
+		"SDLC stub: Plan → Build → Test → Ship → Observe — Cursor fits in Build/Test most visibly, but also helps Plan (explore) and Ship (automation).",
+		"Good practice: small commits, clear prompts, human review of security-sensitive changes.",
+		"You reached the end of the stub curriculum — now ship your own levels!"
+	]
+}
