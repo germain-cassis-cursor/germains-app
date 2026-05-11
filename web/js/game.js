@@ -130,7 +130,7 @@ function update() {
 }
 
 function drawCloud(cx, cy) {
-	ctx.fillStyle = "rgba(255,255,255,0.06)";
+	ctx.fillStyle = "rgba(255,255,255,0.38)";
 	ctx.beginPath();
 	ctx.arc(cx, cy, 28, 0, Math.PI * 2);
 	ctx.arc(cx + 26, cy + 4, 22, 0, Math.PI * 2);
@@ -143,21 +143,26 @@ function draw() {
 	for (let i = 0; i < 6; i++) drawCloud(80 + i * 140, 50 + (i % 3) * 12);
 
 	for (const plat of platforms) {
-		ctx.fillStyle = plat.y >= GROUND_Y ? "#2f3d4d" : "#3d5166";
+		ctx.fillStyle = plat.y >= GROUND_Y ? "#8c4f2b" : "#c06b36";
 		ctx.fillRect(plat.x, plat.y, plat.w, plat.h);
 	}
 
-	ctx.fillStyle = "#6ca06c";
+	ctx.fillStyle = "#00923f";
 	ctx.fillRect(goal.x, goal.y, goal.w, goal.h);
-	ctx.fillStyle = "#e8c547";
+	ctx.fillStyle = "#fbd000";
 	ctx.beginPath();
 	ctx.moveTo(goal.x + goal.w + 6, goal.y + 8);
 	ctx.lineTo(goal.x + goal.w + 46, goal.y + 22);
 	ctx.lineTo(goal.x + goal.w + 6, goal.y + 36);
 	ctx.fill();
 
-	ctx.fillStyle = "#e5c07b";
-	ctx.fillRect(player.x, player.y, player.w, player.h);
+	ctx.fillStyle = "#e52521";
+	ctx.fillRect(player.x, player.y, player.w, 16);
+	ctx.fillStyle = "#005bbb";
+	ctx.fillRect(player.x, player.y + 16, player.w, player.h - 16);
+	ctx.fillStyle = "#fbd000";
+	ctx.fillRect(player.x + 6, player.y + 18, 4, 4);
+	ctx.fillRect(player.x + 18, player.y + 18, 4, 4);
 	ctx.fillStyle = "#1f1a12";
 	ctx.fillRect(player.x + 6, player.y + 10, 6, 6);
 	ctx.fillRect(player.x + 16, player.y + 10, 6, 6);
