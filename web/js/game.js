@@ -18,12 +18,12 @@ const MOVE_SPEED = 0.55;
 const JUMP = -11;
 const FRICTION = 0.82;
 
-let keys = {};
+const keys = new Set();
 let tips = [];
 let tipIndex = 0;
 let won = false;
 
-const player = { x: 40, y: GROUND_Y - 44, w: 28, h: 36, vx: 0, vy: 0, onGround: false };
+const player = { x: 40, y: GROUND_Y - 36, w: 28, h: 36, vx: 0, vy: 0, onGround: true };
 
 const platforms = [
 	{ x: 0, y: GROUND_Y, w: W, h: 48 },
@@ -97,8 +97,8 @@ function resolvePlatform(p, plat) {
 function update() {
 	if (won) return;
 
-	if (keys.ArrowLeft || keys.a) player.vx -= MOVE_SPEED;
-	if (keys.ArrowRight || keys.d) player.vx += MOVE_SPEED;
+	if (keys.has("ArrowLeft") || keys.has("KeyA") || keys.has("a")) player.vx -= MOVE_SPEED;
+	if (keys.has("ArrowRight") || keys.has("KeyD") || keys.has("d")) player.vx += MOVE_SPEED;
 	player.vx *= FRICTION;
 	player.vy += GRAVITY;
 	player.onGround = false;
@@ -183,9 +183,10 @@ function loop() {
 
 function resetRun(full) {
 	player.x = 40;
-	player.y = GROUND_Y - 44;
+	player.y = GROUND_Y - player.h;
 	player.vx = 0;
 	player.vy = 0;
+	player.onGround = true;
 	hitCheckpoint = new Set();
 	tipIndex = 0;
 	won = false;
@@ -195,7 +196,8 @@ function resetRun(full) {
 }
 
 window.addEventListener("keydown", (e) => {
-	keys[e.code] = true;
+	keys.add(e.code);
+	keys.add(e.key);
 	if (e.code === "Space" || e.code === "ArrowUp") e.preventDefault();
 	if (e.code === "KeyR") resetRun(true);
 	if ((e.code === "Space" || e.code === "ArrowUp") && player.onGround) {
@@ -205,7 +207,8 @@ window.addEventListener("keydown", (e) => {
 });
 
 window.addEventListener("keyup", (e) => {
-	keys[e.code] = false;
+	keys.delete(e.code);
+	keys.delete(e.key);
 });
 
 overlayBtn.addEventListener("click", () => resetRun(true));
